@@ -7,6 +7,8 @@ logging.basicConfig(level=logging.INFO)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8720872052:AAHqWZw3mExe5HyER3cJNYjY5Jzm5Ao-a6A")
 
+PATREON = "https://www.patreon.com/membership/28792872"
+
 def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("🧠 Почему пианино развивает мозг?", callback_data="brain")],
@@ -15,11 +17,12 @@ def main_menu():
         [InlineKeyboardButton("💪 Истории тех, кто начал в 30+", callback_data="stories")],
         [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
         [InlineKeyboardButton("📖 Книга DoFaMin", callback_data="book")],
-      [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url="https://www.patreon.com/membership/28792872")],
+        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url=PATREON)],
+    ])
 
 def back_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url="https://www.patreon.com/membership/28792872")],
+        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url=PATREON)],
         [InlineKeyboardButton("← Назад", callback_data="menu")],
     ])
 
@@ -77,20 +80,6 @@ TEXTS = {
 Как преодолеть страх "я уже слишком взрослый". Как найти время. Как не бросить.
 
 Входит в подарок при вступлении в сообщество 🎁""",
-
-    "join": """💳 *Вступить в Adult Piano Learners*
-
-После вступления ты получишь:
-✅ Доступ в закрытый Telegram-канал
-✅ Ежемесячную онлайн-встречу сообщества
-✅ Индивидуальную консультацию с Дианой
-✅ Книгу DoFaMin в подарок
-
-💰 $1.99 в месяц
-
-👇 Вступить: https://www.patreon.com/membership/28792872
-
-💬 Вопросы: @Diana_Birgen"""
 }
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -103,7 +92,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
     if query.data == "menu":
         await query.edit_message_text(
             "🎹 *Добро пожаловать в Adult Piano Learners!*\n\nВыбери, что тебя интересует:",
