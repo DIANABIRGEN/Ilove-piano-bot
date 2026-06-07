@@ -12,46 +12,56 @@ PDF = "https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?us
 
 def main_menu():
     return InlineKeyboardMarkup([
+        [InlineKeyboardButton("🎹 Обучение во взрослом возрасте — на моём примере", callback_data="menu_about")],
+        [InlineKeyboardButton("🎼 Почему именно фортепиано?", callback_data="menu_why")],
+        [InlineKeyboardButton("😰 Я сомневаюсь", callback_data="menu_doubts")],
+        [InlineKeyboardButton("📊 Как выглядит прогресс", callback_data="menu_progress")],
+        [InlineKeyboardButton("👥 Что даст тебе сообщество?", callback_data="menu_community")],
+    ])
+
+def menu_about():
+    return InlineKeyboardMarkup([
         [InlineKeyboardButton("🎹 Мой путь — с нуля в 30 лет", callback_data="about")],
+        [InlineKeyboardButton("🎬 Посмотри как это выглядит", callback_data="video")],
+        [InlineKeyboardButton("💪 Истории тех, кто начал в 30+", callback_data="stories")],
+        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+    ])
+
+def menu_why():
+    return InlineKeyboardMarkup([
         [InlineKeyboardButton("🧠 Почему фортепиано развивает мозг?", callback_data="brain")],
         [InlineKeyboardButton("🎼 Как развить музыкальный вкус?", callback_data="taste")],
-        [InlineKeyboardButton("📱 Детокс от соцсетей через музыку", callback_data="detox")],
-        [InlineKeyboardButton("💪 Истории тех, кто начал в 30+", callback_data="stories")],
+        [InlineKeyboardButton("📱 Детокс от соцсетей", callback_data="detox")],
         [InlineKeyboardButton("⚠️ Важно понять до вступления", callback_data="truth")],
-        [InlineKeyboardButton("😰 Я сомневаюсь...", callback_data="doubts")],
-        [InlineKeyboardButton("📊 Калькулятор прогресса", callback_data="calc")],
-        [InlineKeyboardButton("🎬 Посмотри как это выглядит", callback_data="video")],
-        [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
-        [InlineKeyboardButton("📖 Книга DoFaMi·n", callback_data="book")],
-        [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
-        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
-        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
     ])
 
-def back_menu():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
-        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
-        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
-        [InlineKeyboardButton("← Назад в меню", callback_data="menu")],
-    ])
-
-def calc_menu():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("⏱ 30 мин в день", callback_data="calc_30")],
-        [InlineKeyboardButton("⏱ 1 час в день", callback_data="calc_60")],
-        [InlineKeyboardButton("⏱ 2 часа в день", callback_data="calc_120")],
-        [InlineKeyboardButton("← Назад в меню", callback_data="menu")],
-    ])
-
-def doubts_menu():
+def menu_doubts():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("😟 Я уже слишком взрослый", callback_data="doubt_age")],
         [InlineKeyboardButton("⏰ У меня нет времени", callback_data="doubt_time")],
         [InlineKeyboardButton("🎹 У меня нет инструмента", callback_data="doubt_instrument")],
         [InlineKeyboardButton("🤔 Я не уверен в себе", callback_data="doubt_confidence")],
-        [InlineKeyboardButton("📺 Я учусь по YouTube, мне хватает", callback_data="doubt_youtube")],
-        [InlineKeyboardButton("← Назад в меню", callback_data="menu")],
+        [InlineKeyboardButton("📺 Я учусь по YouTube", callback_data="doubt_youtube")],
+        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+    ])
+
+def menu_progress():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("⏱ 30 мин в день", callback_data="calc_30")],
+        [InlineKeyboardButton("⏱ 1 час в день", callback_data="calc_60")],
+        [InlineKeyboardButton("⏱ 2 часа в день", callback_data="calc_120")],
+        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+    ])
+
+def menu_community():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
+        [InlineKeyboardButton("📖 Книга DoFaMi·n", callback_data="book")],
+        [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
+        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
     ])
 
 TEXTS = {
@@ -64,6 +74,22 @@ TEXTS = {
 *Моя миссия* — показать, как в реальности выглядит профессиональное обучение фортепиано во взрослом возрасте. Без прикрас. Честные результаты, настоящий прогресс.
 
 Это сложно. Это долго. И это одно из лучших решений в моей жизни.""",
+
+    "video": f"""🎬 *Посмотри как это выглядит*
+
+Реальный пример — взрослый человек, который начал с нуля в 30 лет.
+
+Никакого монтажа. Никаких чудес. Настоящий процесс и настоящий результат.
+
+👇 [Смотреть видео]({YOUTUBE})""",
+
+    "stories": """💪 *Истории тех, кто начал в 30+*
+
+Диана, 30 лет: "Я начала, вдохновившись классической музыкой. Казалось невозможным. Пять лет спустя — играю серьёзные произведения и понимаю музыку так, как никогда раньше."
+
+Взрослые ученики часто превосходят детей в глубине понимания музыки — потому что у них есть эмоциональный опыт, которого у детей ещё нет.
+
+_Поздно начать невозможно. Можно только не начать._""",
 
     "brain": """🧠 *Почему фортепиано развивает мозг?*
 
@@ -89,14 +115,6 @@ TEXTS = {
 
 По данным исследования профессора Глории Марк, средняя концентрация внимания упала с 2,5 минут в 2004 году до 47 секунд в 2023-м. Фортепиано буквально восстанавливает то, что цифровая среда разрушает.""",
 
-    "stories": """💪 *Истории тех, кто начал в 30+*
-
-Диана, 30 лет: "Я начала, вдохновившись классической музыкой. Казалось невозможным. Пять лет спустя — играю серьёзные произведения и понимаю музыку так, как никогда раньше."
-
-Взрослые ученики часто превосходят детей в глубине понимания музыки — потому что у них есть эмоциональный опыт, которого у детей ещё нет.
-
-_Поздно начать невозможно. Можно только не начать._""",
-
     "truth": """⚠️ *Важно понять до вступления*
 
 Фортепиано — это не три песни на праздник.
@@ -106,8 +124,6 @@ _Поздно начать невозможно. Можно только не н
 Никто ещё не научился играть качественно с обучающих видео на ютуб. YouTube даёт иллюзию обучения, а не сам навык.
 
 Здесь — настоящее обучение. Сложное, долгое и невероятно вознаграждающее.""",
-
-    "doubts": None,
 
     "doubt_age": """😟 *"Я уже слишком взрослый"*
 
@@ -155,8 +171,6 @@ YouTube показывает как нажать клавиши в опреде�
 
 _Ты заслуживаешь настоящего обучения._""",
 
-    "calc": None,
-
     "calc_30": """📊 *Твой прогресс при 30 минутах в день*
 
 *Шаг первый — фундамент:*
@@ -202,14 +216,6 @@ _Час в день меняет всё._""",
 
 _2 часа в день — это выбор тех, кто серьёзно._""",
 
-    "video": f"""🎬 *Посмотри как это выглядит*
-
-Реальный пример — взрослый человек, который начал с нуля в 30 лет.
-
-Никакого монтажа. Никаких чудес. Настоящий процесс и настоящий результат.
-
-👇 [Смотреть видео]({YOUTUBE})""",
-
     "community": """👥 *Adult Piano Learners*
 
 Закрытое сообщество взрослых, которые учатся играть на фортепиано осознанно.
@@ -245,30 +251,76 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
+    data = query.data
 
-    if query.data == "menu":
+    if data == "menu":
         await query.edit_message_text(
             "🎹 *Adult Piano Learners*\n\nВыбери, что тебя интересует 👇",
             parse_mode="Markdown",
             reply_markup=main_menu()
         )
-    elif query.data == "doubts":
+    elif data == "menu_about":
         await query.edit_message_text(
-            "😰 *Что тебя останавливает?*\n\nВыбери свой страх — разберём честно:",
+            "🎹 *Обучение во взрослом возрасте — на моём примере*\n\nВыбери раздел:",
             parse_mode="Markdown",
-            reply_markup=doubts_menu()
+            reply_markup=menu_about()
         )
-    elif query.data == "calc":
+    elif data == "menu_why":
         await query.edit_message_text(
-            "📊 *Калькулятор прогресса*\n\nСколько времени ты готов уделять фортепиано каждый день?",
+            "🎼 *Почему именно фортепиано?*\n\nВыбери раздел:",
             parse_mode="Markdown",
-            reply_markup=calc_menu()
+            reply_markup=menu_why()
         )
-    elif query.data in TEXTS and TEXTS[query.data]:
+    elif data == "menu_doubts":
         await query.edit_message_text(
-            TEXTS[query.data],
+            "😰 *Я сомневаюсь...*\n\nЧто тебя останавливает? Выбери — разберём честно:",
             parse_mode="Markdown",
-            reply_markup=back_menu()
+            reply_markup=menu_doubts()
+        )
+    elif data == "menu_progress":
+        await query.edit_message_text(
+            "📊 *Как выглядит прогресс*\n\nСколько времени ты готов уделять фортепиано каждый день?",
+            parse_mode="Markdown",
+            reply_markup=menu_progress()
+        )
+    elif data == "menu_community":
+        await query.edit_message_text(
+            "👥 *Что даст тебе сообщество?*\n\nВыбери раздел:",
+            parse_mode="Markdown",
+            reply_markup=menu_community()
+        )
+    elif data in TEXTS and TEXTS[data]:
+        if data in ["about", "video", "stories"]:
+            kb = InlineKeyboardMarkup([
+                [InlineKeyboardButton("← Назад", callback_data="menu_about")],
+                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+            ])
+        elif data in ["brain", "taste", "detox", "truth"]:
+            kb = InlineKeyboardMarkup([
+                [InlineKeyboardButton("← Назад", callback_data="menu_why")],
+                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+            ])
+        elif data.startswith("doubt_"):
+            kb = InlineKeyboardMarkup([
+                [InlineKeyboardButton("← Назад", callback_data="menu_doubts")],
+                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+            ])
+        elif data.startswith("calc_"):
+            kb = InlineKeyboardMarkup([
+                [InlineKeyboardButton("← Назад", callback_data="menu_progress")],
+                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+            ])
+        else:
+            kb = InlineKeyboardMarkup([
+                [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
+                [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
+                [InlineKeyboardButton("← Назад", callback_data="menu_community")],
+                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
+            ])
+        await query.edit_message_text(
+            TEXTS[data],
+            parse_mode="Markdown",
+            reply_markup=kb
         )
 
 def main():
