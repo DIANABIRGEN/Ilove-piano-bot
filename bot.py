@@ -24,13 +24,15 @@ def main_menu():
         [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
         [InlineKeyboardButton("📖 Книга DoFaMi·n", callback_data="book")],
         [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
-        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
     ])
 
 def back_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
-        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
         [InlineKeyboardButton("← Назад в меню", callback_data="menu")],
     ])
 
@@ -213,12 +215,14 @@ _2 часа в день — это выбор тех, кто серьёзно._"
 Закрытое сообщество взрослых, которые учатся играть на фортепиано осознанно.
 
 ✅ Закрытый Telegram-канал с видео и материалами
-✅ Индивидуальная консультация с Дианой — 1,5 часа
 ✅ Онлайн-встреча раз в месяц
 ✅ Оффлайн-встреча раз в год в Бодруме
-🎁 Гайд DoFaMi·n в подарок
 
-💰 $1.99 в месяц""",
+*Community — $1.99/месяц*
+Доступ к каналу, встречам и гайду DoFaMi·n в подарок.
+
+*Mentorship — $12.99/месяц*
+Всё из Community + индивидуальная консультация с Дианой 1,5 часа.""",
 
     "book": """📖 *Книга DoFaMi·n*
 
