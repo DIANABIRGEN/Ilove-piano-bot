@@ -15,8 +15,6 @@ def main_menu():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("🎹 Мой путь обучения 30+ лет", callback_data="menu_about")],
         [InlineKeyboardButton("🎼 Почему именно фортепиано?", callback_data="menu_why")],
-        [InlineKeyboardButton("😰 Я сомневаюсь", callback_data="menu_doubts")],
-        [InlineKeyboardButton("📊 Как выглядит прогресс", callback_data="menu_progress")],
         [InlineKeyboardButton("👥 Что даст тебе сообщество?", callback_data="menu_community")],
         [InlineKeyboardButton("🎁 Подарок — гайд DoFaMi·n", url=PDF)],
         [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
@@ -37,24 +35,6 @@ def menu_why():
         [InlineKeyboardButton("🎼 Как развить музыкальный вкус?", callback_data="taste")],
         [InlineKeyboardButton("📱 Детокс от соцсетей", callback_data="detox")],
         [InlineKeyboardButton("⚠️ Важно понять до вступления", callback_data="truth")],
-        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
-    ])
-
-def menu_doubts():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("😟 Я уже слишком взрослый", callback_data="doubt_age")],
-        [InlineKeyboardButton("⏰ У меня нет времени", callback_data="doubt_time")],
-        [InlineKeyboardButton("🎹 У меня нет инструмента", callback_data="doubt_instrument")],
-        [InlineKeyboardButton("🤔 Я не уверен в себе", callback_data="doubt_confidence")],
-        [InlineKeyboardButton("📺 Я учусь по YouTube", callback_data="doubt_youtube")],
-        [InlineKeyboardButton("← Главное меню", callback_data="menu")],
-    ])
-
-def menu_progress():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("⏱ 30 мин в день", callback_data="calc_30")],
-        [InlineKeyboardButton("⏱ 1 час в день", callback_data="calc_60")],
-        [InlineKeyboardButton("⏱ 2 часа в день", callback_data="calc_120")],
         [InlineKeyboardButton("← Главное меню", callback_data="menu")],
     ])
 
@@ -130,97 +110,6 @@ _Поздно начать невозможно. Можно только не н
 
 Здесь — настоящее обучение. Сложное, долгое и невероятно вознаграждающее.""",
 
-    "doubt_age": """😟 *"Я уже слишком взрослый"*
-
-Это самый распространённый страх — и самый необоснованный.
-
-Нейропластичность работает в любом возрасте. Взрослые ученики имеют огромное преимущество: эмоциональный опыт. Вы понимаете музыку так, как ребёнок никогда не поймёт.
-
-_Диана начала в 30. Через 5 лет играет серьёзную классику._""",
-
-    "doubt_time": """⏰ *"У меня нет времени"*
-
-30 минут в день. Это всё что нужно.
-
-Регулярные короткие занятия эффективнее редких длинных. 30 минут каждый день лучше, чем 3 часа по выходным.
-
-30 минут — это одна серия сериала. Один скролл ленты.
-
-_Время есть. Вопрос в приоритетах._""",
-
-    "doubt_instrument": """🎹 *"У меня нет инструмента"*
-
-Для начала достаточно цифрового фортепиано с 61 клавишей — от $150-200.
-
-Главное — взвешенные клавиши, которые дают правильное ощущение.
-
-В сообществе поможем выбрать инструмент под твой бюджет.""",
-
-    "doubt_confidence": """🤔 *"Я не уверен в себе"*
-
-Именно поэтому существует это сообщество.
-
-Обучение в одиночку — путь, где легко бросить. Сообщество — это люди, которые проходят тот же путь рядом.
-
-Плюс — индивидуальная консультация с Дианой, где разберём именно твою ситуацию.
-
-_Уверенность приходит через действие, не наоборот._""",
-
-    "doubt_youtube": """📺 *"Я учусь по YouTube, мне хватает"*
-
-YouTube показывает как нажать клавиши в определённом порядке. Но не учит музыке.
-
-Разница как между выучить фразу на иностранном языке и выучить сам язык.
-
-Никто ещё не научился играть качественно с обучающих видео.
-
-_Ты заслуживаешь настоящего обучения._""",
-
-    "calc_30": """📊 *Твой прогресс при 30 минутах в день*
-
-*Шаг первый — фундамент:*
-Нотная грамота, ритм, координация двух рук.
-
-*Шаг второй — слух:*
-Сольфеджио, интервалы, аккорды. Музыка становится текстом.
-
-*Шаг третий — гармония:*
-Понимаешь почему музыка звучит именно так.
-
-*Шаг четвёртый — свобода:*
-Берёшь любые ноты и разбираешь самостоятельно.
-
-_Это не про три песни. Это навык на всю жизнь._""",
-
-    "calc_60": """📊 *Твой прогресс при 1 часе в день*
-
-*Шаг первый — фундамент:*
-Быстрее осваиваешь ноты, ритм и координацию.
-
-*Шаг второй — слух:*
-Сольфеджио на хорошем уровне за несколько месяцев.
-
-*Шаг третий — гармония:*
-Серьёзное понимание теории. Разбираешь сложные произведения.
-
-*Шаг четвёртый — свобода:*
-Музыка — твой второй язык.
-
-_Час в день меняет всё._""",
-
-    "calc_120": """📊 *Твой прогресс при 2 часах в день*
-
-*Шаг первый — фундамент:*
-Быстрый старт. За несколько месяцев — то, чего другие достигают за год.
-
-*Шаг второй и третий — слух и гармония:*
-Серьёзная теоретическая база. Продвинутый уровень реален за год.
-
-*Шаг четвёртый — свобода:*
-Профессиональный подход к музыке.
-
-_2 часа в день — это выбор тех, кто серьёзно._""",
-
     "community": """👥 *Adult Piano Learners*
 
 Закрытое сообщество взрослых, которые учатся играть на фортепиано осознанно.
@@ -276,18 +165,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown",
             reply_markup=menu_why()
         )
-    elif data == "menu_doubts":
-        await query.edit_message_text(
-            "😰 *Я сомневаюсь...*\n\nЧто тебя останавливает? Выбери — разберём честно:",
-            parse_mode="Markdown",
-            reply_markup=menu_doubts()
-        )
-    elif data == "menu_progress":
-        await query.edit_message_text(
-            "📊 *Как выглядит прогресс*\n\nСколько времени ты готов уделять фортепиано каждый день?",
-            parse_mode="Markdown",
-            reply_markup=menu_progress()
-        )
     elif data == "menu_community":
         await query.edit_message_text(
             "👥 *Что даст тебе сообщество?*\n\nВыбери раздел:",
@@ -303,16 +180,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         elif data in ["brain", "taste", "detox", "truth"]:
             kb = InlineKeyboardMarkup([
                 [InlineKeyboardButton("← Назад", callback_data="menu_why")],
-                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
-            ])
-        elif data.startswith("doubt_"):
-            kb = InlineKeyboardMarkup([
-                [InlineKeyboardButton("← Назад", callback_data="menu_doubts")],
-                [InlineKeyboardButton("← Главное меню", callback_data="menu")],
-            ])
-        elif data.startswith("calc_"):
-            kb = InlineKeyboardMarkup([
-                [InlineKeyboardButton("← Назад", callback_data="menu_progress")],
                 [InlineKeyboardButton("← Главное меню", callback_data="menu")],
             ])
         else:
