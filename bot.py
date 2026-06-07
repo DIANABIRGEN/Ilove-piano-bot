@@ -6,17 +6,20 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler, Cont
 logging.basicConfig(level=logging.INFO)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8720872052:AAHqWZw3mExe5HyER3cJNYjY5Jzm5Ao-a6A")
-PATREON = "https://www.patreon.com/c/dianabirgen/membership"
+PATREON = "https://www.patreon.com/cw/dianabirgen/membership"
 YOUTUBE = "https://youtu.be/P-B-B6dBZUQ"
 PDF = "https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?usp=sharing"
+DIANA = "https://t.me/Diana_Birgen"
 
 def main_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("🎹 Обучение во взрослом возрасте — на моём примере", callback_data="menu_about")],
+        [InlineKeyboardButton("🎹 Мой путь обучения 30+ лет", callback_data="menu_about")],
         [InlineKeyboardButton("🎼 Почему именно фортепиано?", callback_data="menu_why")],
         [InlineKeyboardButton("😰 Я сомневаюсь", callback_data="menu_doubts")],
         [InlineKeyboardButton("📊 Как выглядит прогресс", callback_data="menu_progress")],
         [InlineKeyboardButton("👥 Что даст тебе сообщество?", callback_data="menu_community")],
+        [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
+        [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
     ])
 
 def menu_about():
@@ -59,6 +62,7 @@ def menu_community():
         [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
         [InlineKeyboardButton("📖 Книга DoFaMi·n", callback_data="book")],
         [InlineKeyboardButton("📥 Скачать гайд DoFaMi·n", url=PDF)],
+        [InlineKeyboardButton("💬 Написать Диане", url=DIANA)],
         [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
         [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
         [InlineKeyboardButton("← Главное меню", callback_data="menu")],
@@ -261,7 +265,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
     elif data == "menu_about":
         await query.edit_message_text(
-            "🎹 *Обучение во взрослом возрасте — на моём примере*\n\nВыбери раздел:",
+            "🎹 *Мой путь обучения 30+ лет*\n\nВыбери раздел:",
             parse_mode="Markdown",
             reply_markup=menu_about()
         )
