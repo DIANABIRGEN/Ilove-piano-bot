@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "8720872052:AAHqWZw3mExe5HyER3cJNYjY5Jzm5Ao-a6A")
 
-PATREON = "https://www.patreon.com/membership/28792872"
+PATREON = "https://www.patreon.com/c/dianabirgen/membership"
 
 def main_menu():
     return InlineKeyboardMarkup([
