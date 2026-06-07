@@ -15,12 +15,11 @@ def main_menu():
         [InlineKeyboardButton("💪 Истории тех, кто начал в 30+", callback_data="stories")],
         [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
         [InlineKeyboardButton("📖 Книга DoFaMin", callback_data="book")],
-        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", callback_data="join")],
-    ])
+      [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url="https://www.patreon.com/membership/28792872")],
 
 def back_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", callback_data="join")],
+        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", url="https://www.patreon.com/membership/28792872")],
         [InlineKeyboardButton("← Назад", callback_data="menu")],
     ])
 
