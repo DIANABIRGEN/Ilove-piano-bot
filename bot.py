@@ -15,12 +15,12 @@ def main_menu():
         [InlineKeyboardButton("💪 Истории тех, кто начал в 30+", callback_data="stories")],
         [InlineKeyboardButton("👥 О сообществе", callback_data="community")],
         [InlineKeyboardButton("📖 Книга DoFaMin", callback_data="book")],
-        [InlineKeyboardButton("💳 Вступить за $12.99", callback_data="join")],
+        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", callback_data="join")],
     ])
 
 def back_menu():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("💳 Вступить за $12.99", callback_data="join")],
+        [InlineKeyboardButton("💳 Вступить за $1.99/месяц", callback_data="join")],
         [InlineKeyboardButton("← Назад", callback_data="menu")],
     ])
 
@@ -62,7 +62,7 @@ TEXTS = {
 Закрытое сообщество взрослых, которые учатся играть на пианино.
 
 ✅ Закрытый Telegram-канал с видео
-✅ Индивидуальные разборы твоей игры
+✅ Индивидуальная консультация с Дианой
 ✅ Онлайн-встреча раз в месяц
 ✅ Оффлайн-встреча раз в год
 🎁 Книга DoFaMin в подарок
@@ -92,6 +92,7 @@ TEXTS = {
 👇 Вступить: https://www.patreon.com/membership/28792872
 
 💬 Вопросы: @Diana_Birgen"""
+}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
