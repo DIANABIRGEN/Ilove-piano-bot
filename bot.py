@@ -18,6 +18,7 @@ def main_menu():
         [InlineKeyboardButton("😰 Я сомневаюсь", callback_data="menu_doubts")],
         [InlineKeyboardButton("📊 Как выглядит прогресс", callback_data="menu_progress")],
         [InlineKeyboardButton("👥 Что даст тебе сообщество?", callback_data="menu_community")],
+        [InlineKeyboardButton("🎁 Подарок — гайд DoFaMi·n", url=PDF)],
         [InlineKeyboardButton("💳 Community — $1.99/месяц", url=PATREON)],
         [InlineKeyboardButton("⭐ Mentorship — $12.99/месяц", url=PATREON)],
     ])
