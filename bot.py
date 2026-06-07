@@ -67,7 +67,7 @@ TEXTS = {
 ✅ Оффлайн-встреча раз в год
 🎁 Книга DoFaMin в подарок
 
-💰 Всего $12.99 в год""",
+💰 Всего $1.99 в месяц""",
 
     "book": """📖 *Книга DoFaMin*
 
@@ -82,14 +82,16 @@ TEXTS = {
     "join": """💳 *Вступить в Adult Piano Learners*
 
 После вступления ты получишь:
-✅ Доступ в закрытый канал
+✅ Доступ в закрытый Telegram-канал
+✅ Ежемесячную онлайн-встречу сообщества
+✅ Индивидуальную консультацию с Дианой
 ✅ Книгу DoFaMin в подарок
-✅ Приглашение на ближайшую встречу
 
-💰 $12.99 в год
+💰 $1.99 в месяц
 
-Напиши нам: @dianaone"""
-}
+👇 Вступить: https://www.patreon.com/membership/28792872
+
+💬 Вопросы: @Diana_Birgen"""
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
