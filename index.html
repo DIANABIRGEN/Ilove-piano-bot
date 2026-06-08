@@ -7,329 +7,704 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --gold:#C9A84C;
-  --gold-light:#e8d5a0;
-  --dark:#0f0e0c;
-  --dark2:#1a1916;
-  --dark3:#242320;
-  --text:#f0ece3;
-  --text-muted:#9a9080;
-  --serif:'Cormorant Garamond',serif;
-  --sans:'Jost',sans-serif;
-}
+:root{--gold:#C9A84C;--gold-light:#e8d5a0;--dark:#0a0908;--dark2:#141210;--dark3:#1e1b18;--text:#f0ece3;--muted:#8a8070;--serif:'Cormorant Garamond',serif;--sans:'Jost',sans-serif}
 html{scroll-behavior:smooth}
-body{background:var(--dark);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+body{background:var(--dark);color:var(--text);font-family:var(--sans);font-weight:300;overflow-x:hidden}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(15,14,12,0.95),transparent)}
+/* AUDIO */
+.audio-btn{position:fixed;bottom:2rem;right:2rem;z-index:200;width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.5);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:all 0.3s;backdrop-filter:blur(10px)}
+.audio-btn:hover{background:rgba(201,168,76,0.25);transform:scale(1.1)}
+.audio-btn.playing{box-shadow:0 0 0 0 rgba(201,168,76,0.4);animation:audioPulse 2s infinite}
+@keyframes audioPulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,0.4)}70%{box-shadow:0 0 0 14px rgba(201,168,76,0)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0)}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.4s}
+nav.scrolled{background:rgba(10,9,8,0.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,168,76,0.08)}
 .logo{font-family:var(--serif);font-size:1.4rem;color:var(--gold);letter-spacing:0.05em}
-.nav-btn{border:1px solid var(--gold);color:var(--gold);padding:0.5rem 1.5rem;font-family:var(--sans);font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
-.nav-btn:hover{background:var(--gold);color:var(--dark)}
+.nav-links{display:flex;gap:2.5rem;align-items:center}
+.nav-link{color:var(--muted);font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:color 0.3s}
+.nav-link:hover{color:var(--gold)}
+.nav-cta{border:1px solid var(--gold);color:var(--gold);padding:0.5rem 1.5rem;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+.nav-cta:hover{background:var(--gold);color:var(--dark)}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 60%,rgba(201,168,76,0.07) 0%,transparent 70%)}
-.hero-eyebrow{font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;opacity:0;animation:fadeUp 1s 0.3s forwards}
-.hero h1{font-family:var(--serif);font-size:clamp(3rem,8vw,6.5rem);font-weight:300;line-height:1.05;margin-bottom:2rem;opacity:0;animation:fadeUp 1s 0.5s forwards}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero-sub{font-size:1.15rem;color:var(--text-muted);max-width:560px;margin:0 auto 3rem;opacity:0;animation:fadeUp 1s 0.7s forwards;line-height:1.8}
-.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 0.9s forwards}
-.btn-primary{background:var(--gold);color:var(--dark);padding:0.9rem 2.5rem;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all 0.3s;display:inline-block}
-.btn-primary:hover{background:var(--gold-light)}
-.btn-secondary{border:1px solid rgba(201,168,76,0.4);color:var(--text);padding:0.9rem 2.5rem;font-family:var(--sans);font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block}
-.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center}
+.hero-bg{position:absolute;inset:0;background:#0a0908}
 
-.divider{width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto}
+/* SVG ANIMATED PIANO ILLUSTRATION */
+.hero-illustration{position:absolute;right:0;top:0;bottom:0;width:55%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-illustration svg{width:100%;height:100%;object-fit:cover}
 
-section{padding:6rem 2rem}
-.container{max-width:920px;margin:0 auto}
-.section-label{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.section-title{font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;line-height:1.2;margin-bottom:2rem}
-.section-title em{font-style:italic;color:var(--gold)}
+.hero-gradient{position:absolute;inset:0;background:linear-gradient(to right,var(--dark) 35%,rgba(10,9,8,0.6) 60%,rgba(10,9,8,0.1) 100%)}
+.hero-gradient-bottom{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,var(--dark),transparent)}
+
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.p{position:absolute;border-radius:50%;animation:rise linear infinite;opacity:0}
+@keyframes rise{0%{opacity:0;transform:translateY(100vh) scale(0)}15%{opacity:1}85%{opacity:0.4}100%{opacity:0;transform:translateY(-20vh) scale(2)}}
+
+.hero-content{position:relative;z-index:2;padding:8rem 4rem 4rem;max-width:680px}
+.hero-eyebrow{font-size:0.68rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;opacity:0;animation:fadeUp 1s 0.3s forwards;display:flex;align-items:center;gap:1rem}
+.hero-eyebrow::after{content:'';flex:0 0 40px;height:1px;background:var(--gold)}
+.hero h1{font-family:var(--serif);font-size:clamp(3.5rem,7vw,7rem);font-weight:300;line-height:1;margin-bottom:1.5rem;opacity:0;animation:fadeUp 1s 0.5s forwards}
+.hero h1 em{font-style:italic;color:var(--gold);display:block}
+.hero-sub{font-size:1.05rem;color:rgba(240,236,227,0.65);max-width:480px;margin-bottom:3rem;opacity:0;animation:fadeUp 1s 0.7s forwards;line-height:1.9}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp 1s 0.9s forwards}
+.btn-gold{background:var(--gold);color:var(--dark);padding:1rem 2.5rem;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all 0.4s;display:inline-block;position:relative;overflow:hidden}
+.btn-gold::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transition:left 0.5s}
+.btn-gold:hover::after{left:100%}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(201,168,76,0.35)}
+.btn-outline{border:1px solid rgba(201,168,76,0.4);color:var(--text);padding:1rem 2.5rem;font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+
+.scroll-arrow{position:absolute;bottom:2.5rem;left:4rem;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:0.5rem;opacity:0;animation:fadeUp 1s 1.5s forwards}
+.scroll-arrow span{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted)}
+.arrow-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:arrowPulse 2s ease-in-out infinite}
+@keyframes arrowPulse{0%,100%{transform:scaleY(0.4);opacity:0.4}50%{transform:scaleY(1);opacity:1}}
+
+/* STATS */
+.stats{border-top:1px solid rgba(201,168,76,0.08);border-bottom:1px solid rgba(201,168,76,0.08);padding:2.5rem 4rem;background:rgba(201,168,76,0.03)}
+.stats-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-n{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--gold);line-height:1;display:block}
+.stat-l{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+
+/* SECTIONS */
+section{padding:7rem 2rem}
+.container{max-width:960px;margin:0 auto}
+.lbl{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem}
+.lbl::after{content:'';flex:1;height:1px;background:linear-gradient(to right,rgba(201,168,76,0.25),transparent)}
+.title{font-family:var(--serif);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;line-height:1.15;margin-bottom:1.5rem}
+.title em{font-style:italic;color:var(--gold)}
+
+/* REVEAL ANIMATIONS */
+.rv{opacity:0;transform:translateY(40px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.rl{opacity:0;transform:translateX(-50px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+.rl.on{opacity:1;transform:translateX(0)}
+.rr{opacity:0;transform:translateX(50px);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+.rr.on{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
 
 /* EMPATHY */
 .empathy{background:var(--dark2)}
-.voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:3rem}
-.voice{background:var(--dark2);padding:2rem 1.5rem}
-.voice-text{font-family:var(--serif);font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.6;margin-bottom:1rem}
-.voice-note{font-size:0.8rem;color:var(--text-muted);letter-spacing:0.05em}
+.quotes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.07);margin-top:3rem}
+.quote-card{background:var(--dark2);padding:2.5rem 2rem;transition:background 0.4s;position:relative;overflow:hidden}
+.quote-card::before{content:'❝';position:absolute;top:0.5rem;right:1rem;font-size:4rem;color:rgba(201,168,76,0.06);font-family:var(--serif);line-height:1;pointer-events:none}
+.quote-card:hover{background:rgba(201,168,76,0.04)}
+.quote-text{font-family:var(--serif);font-size:1.05rem;font-style:italic;line-height:1.7;margin-bottom:1.5rem;color:var(--text)}
+.quote-author{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold)}
 
 /* ABOUT */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-.about-text p{color:var(--text-muted);margin-bottom:1.2rem;font-size:1rem}
-.about-text p strong{color:var(--text);font-weight:400}
-.about-quote{border-left:1px solid var(--gold);padding-left:2rem}
-.about-quote blockquote{font-family:var(--serif);font-size:1.35rem;font-style:italic;line-height:1.6;color:var(--text);margin-bottom:1rem}
-.about-quote cite{font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold)}
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-text p{color:var(--muted);margin-bottom:1.3rem;font-size:0.97rem;line-height:1.85}
+.about-text strong{color:var(--text);font-weight:400}
+.about-quote-block{border-left:2px solid var(--gold);padding-left:2.5rem;position:relative}
+.about-quote-block blockquote{font-family:var(--serif);font-size:1.2rem;font-style:italic;line-height:1.75;color:var(--text);margin-bottom:1.5rem}
+.about-quote-block cite{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold)}
 
-/* IDENTITY */
-.identity{background:var(--dark3);text-align:center}
-.identity-statement{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.8rem);font-weight:300;font-style:italic;max-width:720px;margin:0 auto 3rem;line-height:1.4;color:var(--text)}
-.identity-pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:3rem}
-.identity-pillar{background:var(--dark3);padding:2.5rem 2rem;text-align:left}
-.pillar-num{font-family:var(--serif);font-size:3rem;font-weight:300;color:rgba(201,168,76,0.2);margin-bottom:1rem;line-height:1}
-.identity-pillar h3{font-family:var(--serif);font-size:1.3rem;font-weight:400;margin-bottom:0.8rem}
-.identity-pillar p{font-size:0.9rem;color:var(--text-muted);line-height:1.7}
+/* VIDEO */
+.video-sec{background:var(--dark3);text-align:center}
+.video-frame{position:relative;padding-bottom:56.25%;margin-top:3rem;overflow:hidden;cursor:pointer;border:1px solid rgba(201,168,76,0.12)}
+.video-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.6s}
+.video-frame:hover img{transform:scale(1.03)}
+.play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+.play-circle{width:90px;height:90px;border-radius:50%;background:rgba(201,168,76,0.9);display:flex;align-items:center;justify-content:center;transition:all 0.3s;box-shadow:0 0 40px rgba(201,168,76,0.3)}
+.video-frame:hover .play-circle{transform:scale(1.12);background:var(--gold);box-shadow:0 0 60px rgba(201,168,76,0.5)}
+.play-triangle{width:0;height:0;border-top:20px solid transparent;border-bottom:20px solid transparent;border-left:32px solid #0a0908;margin-left:7px}
+.video-caption{margin-top:1.5rem;font-size:0.85rem;color:var(--muted);font-style:italic}
+
+/* PILLARS */
+.pillars-sec{background:var(--dark2)}
+.big-quote{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.8rem);font-weight:300;font-style:italic;text-align:center;max-width:750px;margin:0 auto 3rem;line-height:1.45}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.07)}
+.pillar{background:var(--dark2);padding:3rem 2rem;transition:background 0.4s}
+.pillar:hover{background:rgba(201,168,76,0.04)}
+.pnum{font-family:var(--serif);font-size:4.5rem;font-weight:300;color:rgba(201,168,76,0.12);line-height:1;margin-bottom:1.5rem}
+.pillar h3{font-family:var(--serif);font-size:1.35rem;font-weight:400;margin-bottom:1rem}
+.pillar p{font-size:0.87rem;color:var(--muted);line-height:1.85}
 
 /* FACTS */
-.facts{text-align:center}
-.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
-.fact-num{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--gold);display:block;margin-bottom:0.3rem}
-.fact-text{font-size:0.85rem;color:var(--text-muted);line-height:1.5}
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(201,168,76,0.07);margin-top:3rem}
+.fact{background:var(--dark);padding:3rem 2rem;text-align:center;transition:background 0.4s}
+.fact:hover{background:rgba(201,168,76,0.04)}
+.fact-n{font-family:var(--serif);font-size:4.5rem;font-weight:300;color:var(--gold);line-height:1;display:block;margin-bottom:0.5rem}
+.fact-t{font-size:0.82rem;color:var(--muted);line-height:1.7}
+
+/* CALCULATOR */
+.calc-sec{background:var(--dark3)}
+.calc-box{border:1px solid rgba(201,168,76,0.18);padding:3rem;margin-top:3rem}
+.calc-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.08);margin-bottom:2rem}
+.ctab{background:var(--dark3);padding:1.5rem;text-align:center;cursor:pointer;border:none;color:var(--text);font-family:var(--sans);transition:all 0.3s;border-bottom:2px solid transparent}
+.ctab:hover,.ctab.on{background:rgba(201,168,76,0.07);border-bottom-color:var(--gold)}
+.ctab-t{font-family:var(--serif);font-size:2.2rem;font-weight:300;color:var(--gold);display:block;line-height:1;margin-bottom:0.3rem}
+.ctab-l{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
+.cpanel{display:none}
+.cpanel.on{display:block}
+.cintro{color:var(--muted);font-size:0.95rem;margin-bottom:2rem;padding:1rem 1.5rem;border-left:2px solid var(--gold);font-style:italic;line-height:1.7}
+.csteps{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(201,168,76,0.07)}
+.cstep{background:var(--dark3);padding:1.5rem 2rem;transition:background 0.3s}
+.cstep:hover{background:rgba(201,168,76,0.06)}
+.cstep-l{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem}
+.cstep-d{font-size:0.87rem;color:var(--muted);line-height:1.65}
 
 /* TRUTH */
-.truth{background:var(--dark2)}
-.truth-quote{font-family:var(--serif);font-size:clamp(1.3rem,3vw,2rem);font-style:italic;border-left:2px solid var(--gold);padding-left:2rem;margin:2rem 0;line-height:1.5;color:var(--text)}
-.truth-body{color:var(--text-muted);font-size:1rem;line-height:1.8}
-.truth-body + .truth-body{margin-top:1rem}
+.truth-sec{background:var(--dark2)}
+.big-truth{font-family:var(--serif);font-size:clamp(1.2rem,3vw,1.9rem);font-style:italic;border-left:2px solid var(--gold);padding:1.5rem 2rem;margin:2.5rem 0;line-height:1.65}
+.truth-p{color:var(--muted);font-size:0.97rem;line-height:1.9;margin-top:1.2rem}
 
-/* ECOSYSTEM */
-.ecosystem{background:var(--dark3)}
-.eco-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:3rem}
-.eco-item{background:var(--dark3);padding:2.5rem 2rem}
-.eco-tag{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem}
-.eco-item h3{font-family:var(--serif);font-size:1.4rem;font-weight:400;margin-bottom:0.8rem}
-.eco-item p{font-size:0.9rem;color:var(--text-muted);line-height:1.7}
-.eco-price{margin-top:1rem;font-size:0.85rem;color:var(--gold)}
+/* AI */
+.ai-sec{background:var(--dark3)}
+.ai-wrap{max-width:680px;margin:2rem auto 0;border:1px solid rgba(201,168,76,0.18);position:relative;overflow:hidden}
+.ai-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.ai-head{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,0.08);background:rgba(201,168,76,0.03)}
+.ai-av{width:40px;height:40px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ai-nm{font-family:var(--serif);font-size:0.95rem;color:var(--text)}
+.ai-st{font-size:0.7rem;color:var(--gold);display:flex;align-items:center;gap:0.35rem;margin-top:0.1rem}
+.dot{width:5px;height:5px;background:var(--gold);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
+.ai-msgs{padding:1.2rem 1.5rem;min-height:120px;display:flex;flex-direction:column;gap:0.8rem;max-height:260px;overflow-y:auto}
+.ai-msgs::-webkit-scrollbar{width:3px}
+.ai-msgs::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2)}
+.m{padding:0.8rem 1.1rem;font-size:0.87rem;line-height:1.65;max-width:87%;animation:mIn 0.3s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.m.bot{background:rgba(201,168,76,0.06);border-left:2px solid rgba(201,168,76,0.35);color:var(--muted);align-self:flex-start}
+.m.usr{background:rgba(255,255,255,0.05);align-self:flex-end;color:var(--text);text-align:right}
+.m.typ{color:var(--muted);font-style:italic;align-self:flex-start}
+.ai-sugs{padding:0.5rem 1.5rem;display:flex;flex-wrap:wrap;gap:0.4rem}
+.sug{border:1px solid rgba(201,168,76,0.15);padding:0.3rem 0.75rem;font-size:0.73rem;color:var(--muted);cursor:pointer;transition:all 0.2s;background:transparent;font-family:var(--sans)}
+.sug:hover{border-color:var(--gold);color:var(--gold)}
+.ai-row{display:flex;border-top:1px solid rgba(201,168,76,0.08)}
+.ai-inp{flex:1;background:transparent;border:none;padding:1rem 1.2rem;color:var(--text);font-family:var(--sans);font-size:0.87rem;outline:none}
+.ai-inp::placeholder{color:var(--muted)}
+.ai-go{background:var(--gold);color:var(--dark);border:none;padding:1rem 1.4rem;cursor:pointer;font-family:var(--sans);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;transition:all 0.3s;font-weight:500}
+.ai-go:hover{background:var(--gold-light)}
+.ai-go:disabled{opacity:0.35;cursor:not-allowed}
 
 /* PLANS */
-.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
-.plan{border:1px solid rgba(201,168,76,0.2);padding:2.5rem;transition:border-color 0.3s}
-.plan:hover{border-color:var(--gold)}
-.plan.featured{border-color:var(--gold)}
-.plan-badge{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
-.plan-name{font-family:var(--serif);font-size:1.8rem;font-weight:300;margin-bottom:0.5rem}
-.plan-price{font-size:2.5rem;font-weight:300;color:var(--gold);margin-bottom:2rem}
-.plan-price span{font-size:1rem;color:var(--text-muted)}
-.plan-features{list-style:none;margin-bottom:2rem}
-.plan-features li{padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.9rem;color:var(--text-muted);display:flex;gap:0.8rem}
-.plan-features li::before{content:'—';color:var(--gold);flex-shrink:0}
-.plan a{display:block;text-align:center;padding:0.9rem;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
-.plan a.gold{background:var(--gold);color:var(--dark)}
-.plan a.gold:hover{background:var(--gold-light)}
-.plan a.outline{border:1px solid rgba(201,168,76,0.4);color:var(--text)}
-.plan a.outline:hover{border-color:var(--gold);color:var(--gold)}
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(201,168,76,0.07);margin-top:3rem}
+.plan{background:var(--dark);padding:3rem;transition:background 0.4s;position:relative}
+.plan:hover{background:rgba(201,168,76,0.03)}
+.plan.feat{background:rgba(201,168,76,0.04)}
+.plan.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+.plan-tag{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.plan-nm{font-family:var(--serif);font-size:2rem;font-weight:300;margin-bottom:0.5rem}
+.plan-pr{font-size:3rem;font-weight:300;color:var(--gold);margin-bottom:2.5rem;line-height:1}
+.plan-pr sup{font-size:1.2rem;vertical-align:top;margin-top:0.8rem;display:inline-block}
+.plan-pr sub{font-size:1rem;color:var(--muted)}
+.plan-fs{list-style:none;margin-bottom:2.5rem}
+.plan-fs li{padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.87rem;color:var(--muted);display:flex;align-items:center;gap:1rem}
+.plan-fs li::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0}
+.plan a{display:block;text-align:center;padding:1rem;font-size:0.77rem;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+.plan a.fill{background:var(--gold);color:var(--dark);font-weight:500}
+.plan a.fill:hover{background:var(--gold-light)}
+.plan a.line{border:1px solid rgba(201,168,76,0.3);color:var(--text)}
+.plan a.line:hover{border-color:var(--gold);color:var(--gold)}
 
 /* GIFT */
-.gift{background:var(--dark2);text-align:center}
-.gift-box{display:inline-block;border:1px solid var(--gold);padding:3rem 4rem;max-width:620px}
-.gift-title{font-family:var(--serif);font-size:2.5rem;font-weight:300;color:var(--gold);margin-bottom:0.5rem}
-.gift-sub{font-size:0.85rem;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:1.5rem;text-transform:uppercase}
-.gift-desc{font-size:0.95rem;color:var(--text-muted);margin-bottom:2rem;line-height:1.8}
+.gift-sec{background:var(--dark2);text-align:center;position:relative;overflow:hidden}
+.gift-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,0.07) 0%,transparent 70%);pointer-events:none}
+.gift-box{display:inline-block;border:1px solid rgba(201,168,76,0.3);padding:4rem 5rem;max-width:640px;position:relative}
+.gift-box::before,.gift-box::after{content:'';position:absolute;width:28px;height:28px;border-color:var(--gold);border-style:solid}
+.gift-box::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+.gift-box::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+.gift-t{font-family:var(--serif);font-size:3.2rem;font-weight:300;color:var(--gold);margin-bottom:0.5rem}
+.gift-s{font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-bottom:2rem}
+.gift-d{font-size:0.95rem;color:var(--muted);margin-bottom:2.5rem;line-height:1.9;max-width:460px;margin-left:auto;margin-right:auto}
 
-footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.15);padding:3rem 2rem;text-align:center}
-footer .logo{display:block;margin-bottom:1rem;font-size:1.6rem}
-footer p{font-size:0.85rem;color:var(--text-muted)}
+footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.08);padding:3rem 2rem;text-align:center}
+footer .logo{display:block;margin-bottom:1rem;font-size:1.8rem}
+footer p{font-size:0.82rem;color:var(--muted)}
 footer a{color:var(--gold);text-decoration:none}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:768px){
-  nav{padding:1.5rem 1.5rem}
-  .about-grid,.plans-grid,.eco-grid,.identity-pillars,.voices-grid,.facts-grid{grid-template-columns:1fr}
-  .gift-box{padding:2rem 1.5rem}
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem}.nav-links{display:none}
+  .hero-content{padding:7rem 1.5rem 4rem}.hero-illustration{opacity:0.2;width:100%}
+  .hero-gradient{background:linear-gradient(to right,var(--dark) 10%,rgba(10,9,8,0.85) 100%)}
+  .about-wrap,.plans-grid,.quotes-grid,.pillars,.facts-grid,.csteps,.ctabs,.stats-inner{grid-template-columns:1fr}
+  .gift-box{padding:2.5rem 1.5rem}
 }
 </style>
 </head>
 <body>
 
-<nav>
+<button class="audio-btn" id="aud" onclick="toggleAudio()">🎵</button>
+<audio id="bgAudio" loop>
+  <source src="https://upload.wikimedia.org/wikipedia/commons/5/54/Chopin_-_Piano_Sonata_No._2_in_Bb_minor%2C_Op._35%2C_1st_movement.ogg" type="audio/ogg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg">
+</audio>
+
+<nav id="nav">
   <span class="logo">DoFaMi·n</span>
-  <a href="https://t.me/IlovepianoBot" class="nav-btn">Открыть бота</a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">О Diana</a>
+    <a href="#video" class="nav-link">Видео</a>
+    <a href="#calc" class="nav-link">Прогресс</a>
+    <a href="#plans" class="nav-link">Сообщество</a>
+  </div>
+  <a href="https://t.me/IlovepianoBot" class="nav-cta">Открыть бота</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div>
+  <div class="hero-bg"></div>
+
+  <!-- Живая SVG иллюстрация — руки на клавишах -->
+  <div class="hero-illustration">
+    <svg viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#0a0908" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="keyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8e0d0"/>
+          <stop offset="100%" stop-color="#b0a890"/>
+        </linearGradient>
+        <linearGradient id="blackKey" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a2520"/>
+          <stop offset="100%" stop-color="#0f0d0a"/>
+        </linearGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="8"/></filter>
+        <filter id="glow-filter">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+        </filter>
+      </defs>
+
+      <!-- Background glow -->
+      <ellipse cx="400" cy="500" rx="350" ry="400" fill="url(#glow)"/>
+
+      <!-- Piano body -->
+      <rect x="50" y="550" width="700" height="280" rx="8" fill="#1a1510"/>
+      <rect x="50" y="540" width="700" height="25" rx="4" fill="#2a2218"/>
+      <rect x="55" y="548" width="690" height="6" rx="2" fill="#3a3020"/>
+
+      <!-- White keys -->
+      <g opacity="0.95">
+        <rect x="68" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="116" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="164" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="212" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="260" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="308" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="356" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="404" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="452" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="500" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="548" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="596" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="644" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+        <rect x="692" y="565" width="42" height="160" rx="0 0 5 5" fill="url(#keyGrad)"/>
+      </g>
+
+      <!-- Pressed key glow -->
+      <rect x="260" y="565" width="42" height="160" rx="0 0 5 5" fill="#d4b060" opacity="0">
+        <animate attributeName="opacity" values="0;0.8;0;0;0;0" dur="3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="404" y="565" width="42" height="160" rx="0 0 5 5" fill="#d4b060" opacity="0">
+        <animate attributeName="opacity" values="0;0;0.8;0;0;0" dur="3s" repeatCount="indefinite"/>
+      </rect>
+      <rect x="548" y="565" width="42" height="160" rx="0 0 5 5" fill="#d4b060" opacity="0">
+        <animate attributeName="opacity" values="0;0;0;0.8;0;0" dur="3s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- Black keys -->
+      <g fill="url(#blackKey)">
+        <rect x="100" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="148" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="244" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="292" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="340" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="436" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="484" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="580" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="628" y="565" width="28" height="100" rx="0 0 3 3"/>
+        <rect x="676" y="565" width="28" height="100" rx="0 0 3 3"/>
+      </g>
+
+      <!-- Key dividers -->
+      <g stroke="#8a7860" stroke-width="0.5" opacity="0.4">
+        <line x1="115" y1="565" x2="115" y2="725"/>
+        <line x1="163" y1="565" x2="163" y2="725"/>
+        <line x1="211" y1="565" x2="211" y2="725"/>
+        <line x1="259" y1="565" x2="259" y2="725"/>
+        <line x1="307" y1="565" x2="307" y2="725"/>
+        <line x1="355" y1="565" x2="355" y2="725"/>
+        <line x1="403" y1="565" x2="403" y2="725"/>
+        <line x1="451" y1="565" x2="451" y2="725"/>
+        <line x1="499" y1="565" x2="499" y2="725"/>
+        <line x1="547" y1="565" x2="547" y2="725"/>
+        <line x1="595" y1="565" x2="595" y2="725"/>
+        <line x1="643" y1="565" x2="643" y2="725"/>
+        <line x1="691" y1="565" x2="691" y2="725"/>
+      </g>
+
+      <!-- HANDS - Left hand -->
+      <g opacity="0.9">
+        <!-- Palm left -->
+        <ellipse cx="250" cy="530" rx="65" ry="30" fill="#c4a882" opacity="0.95"/>
+        <!-- Wrist left -->
+        <rect x="200" y="530" width="100" height="40" rx="20" fill="#c4a882"/>
+        <!-- Fingers left -->
+        <g fill="#c4a882">
+          <!-- Thumb -->
+          <ellipse cx="205" cy="518" rx="12" ry="22" fill="#c4a882" transform="rotate(-20 205 518)"/>
+          <!-- Index -->
+          <rect x="218" y="488" width="16" height="48" rx="8" fill="#c4a882"/>
+          <!-- Middle - pressed down -->
+          <rect x="238" y="495" width="16" height="50" rx="8" fill="#be9f78">
+            <animate attributeName="y" values="495;500;495" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="height" values="50;45;50" dur="3s" repeatCount="indefinite"/>
+          </rect>
+          <!-- Ring -->
+          <rect x="258" y="492" width="16" height="47" rx="8" fill="#c4a882"/>
+          <!-- Pinky -->
+          <rect x="276" y="498" width="13" height="40" rx="6" fill="#c4a882"/>
+        </g>
+        <!-- Knuckle highlights -->
+        <g fill="#d4b892" opacity="0.5">
+          <ellipse cx="226" cy="498" rx="5" ry="3"/>
+          <ellipse cx="246" cy="500" rx="5" ry="3"/>
+          <ellipse cx="266" cy="498" rx="5" ry="3"/>
+          <ellipse cx="283" cy="503" rx="4" ry="2.5"/>
+        </g>
+      </g>
+
+      <!-- HANDS - Right hand -->
+      <g opacity="0.9">
+        <!-- Palm right -->
+        <ellipse cx="530" cy="530" rx="65" ry="30" fill="#c4a882" opacity="0.95"/>
+        <!-- Wrist right -->
+        <rect x="480" y="530" width="100" height="40" rx="20" fill="#c4a882"/>
+        <!-- Fingers right -->
+        <g fill="#c4a882">
+          <!-- Thumb -->
+          <ellipse cx="572" cy="518" rx="12" ry="22" fill="#c4a882" transform="rotate(20 572 518)"/>
+          <!-- Index -->
+          <rect x="548" y="490" width="16" height="48" rx="8" fill="#c4a882"/>
+          <!-- Middle - pressed down -->
+          <rect x="528" y="493" width="16" height="50" rx="8" fill="#be9f78">
+            <animate attributeName="y" values="493;498;493" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+            <animate attributeName="height" values="50;45;50" dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+          </rect>
+          <!-- Ring -->
+          <rect x="508" y="490" width="16" height="47" rx="8" fill="#c4a882"/>
+          <!-- Pinky -->
+          <rect x="491" y="497" width="13" height="41" rx="6" fill="#c4a882"/>
+        </g>
+        <!-- Knuckle highlights -->
+        <g fill="#d4b892" opacity="0.5">
+          <ellipse cx="556" cy="500" rx="5" ry="3"/>
+          <ellipse cx="536" cy="498" rx="5" ry="3"/>
+          <ellipse cx="516" cy="498" rx="5" ry="3"/>
+          <ellipse cx="498" cy="503" rx="4" ry="2.5"/>
+        </g>
+      </g>
+
+      <!-- Wave paths for notes to follow -->
+      <defs>
+        <path id="wave1" d="M 100 500 Q 200 420 300 480 Q 400 540 500 460 Q 600 380 700 440"/>
+        <path id="wave2" d="M 150 520 Q 250 440 350 500 Q 450 560 550 480 Q 650 400 750 460"/>
+        <path id="wave3" d="M 80 510 Q 180 430 280 490 Q 380 550 480 470 Q 580 390 680 450"/>
+      </defs>
+
+      <!-- Background wave glow -->
+      <g opacity="0.06" filter="url(#blur)">
+        <path d="M 50 500 Q 200 400 350 480 Q 500 560 650 460 Q 750 400 800 440" stroke="#C9A84C" stroke-width="60" fill="none"/>
+        <path d="M 50 350 Q 200 270 350 340 Q 500 410 650 310 Q 750 250 800 290" stroke="#C9A84C" stroke-width="40" fill="none"/>
+      </g>
+
+      <!-- Large bright floating notes on wave paths -->
+      <g font-family="Georgia,serif" fill="#C9A84C" filter="url(#glow-filter)">
+        <!-- Note 1 - large ♩ -->
+        <text font-size="52" opacity="0">♩
+          <animate attributeName="opacity" values="0;1;0.9;0" dur="5s" begin="0s" repeatCount="indefinite"/>
+          <animateMotion dur="5s" begin="0s" repeatCount="indefinite" path="M 100 480 Q 200 380 300 440 Q 400 500 500 420 Q 600 340 700 400"/>
+        </text>
+        <!-- Note 2 - ♪ -->
+        <text font-size="44" opacity="0">♪
+          <animate attributeName="opacity" values="0;0.95;0.8;0" dur="6s" begin="1s" repeatCount="indefinite"/>
+          <animateMotion dur="6s" begin="1s" repeatCount="indefinite" path="M 150 500 Q 250 400 350 460 Q 450 520 550 440 Q 650 360 750 420"/>
+        </text>
+        <!-- Note 3 - large ♫ -->
+        <text font-size="60" opacity="0">♫
+          <animate attributeName="opacity" values="0;1;0.85;0" dur="7s" begin="0.5s" repeatCount="indefinite"/>
+          <animateMotion dur="7s" begin="0.5s" repeatCount="indefinite" path="M 80 460 Q 180 360 280 420 Q 380 480 480 400 Q 580 320 680 380"/>
+        </text>
+        <!-- Note 4 - ♬ -->
+        <text font-size="48" opacity="0">♬
+          <animate attributeName="opacity" values="0;0.9;0.7;0" dur="5.5s" begin="2s" repeatCount="indefinite"/>
+          <animateMotion dur="5.5s" begin="2s" repeatCount="indefinite" path="M 200 520 Q 300 420 400 480 Q 500 540 600 460 Q 700 380 780 440"/>
+        </text>
+        <!-- Note 5 - ♩ small -->
+        <text font-size="36" opacity="0">♩
+          <animate attributeName="opacity" values="0;0.85;0" dur="4.5s" begin="3s" repeatCount="indefinite"/>
+          <animateMotion dur="4.5s" begin="3s" repeatCount="indefinite" path="M 120 490 Q 220 390 320 450 Q 420 510 520 430 Q 620 350 720 410"/>
+        </text>
+        <!-- Note 6 - ♪ large -->
+        <text font-size="56" opacity="0" fill="#e8d5a0">♪
+          <animate attributeName="opacity" values="0;0.8;0.6;0" dur="8s" begin="4s" repeatCount="indefinite"/>
+          <animateMotion dur="8s" begin="4s" repeatCount="indefinite" path="M 60 510 Q 160 410 260 470 Q 360 530 460 450 Q 560 370 660 430"/>
+        </text>
+        <!-- Note 7 - ♫ medium -->
+        <text font-size="40" opacity="0" fill="#d4b860">♫
+          <animate attributeName="opacity" values="0;0.9;0" dur="6.5s" begin="1.5s" repeatCount="indefinite"/>
+          <animateMotion dur="6.5s" begin="1.5s" repeatCount="indefinite" path="M 300 530 Q 400 430 500 490 Q 600 550 700 470 Q 780 410 800 450"/>
+        </text>
+        <!-- Note 8 - ♬ small bright -->
+        <text font-size="32" opacity="0" fill="#f0e0a0">♬
+          <animate attributeName="opacity" values="0;1;0" dur="4s" begin="2.5s" repeatCount="indefinite"/>
+          <animateMotion dur="4s" begin="2.5s" repeatCount="indefinite" path="M 250 470 Q 350 370 450 430 Q 550 490 650 410"/>
+        </text>
+      </g>
+
+      <!-- Bright glow dots along wave -->
+      <g fill="#C9A84C">
+        <circle r="4" opacity="0">
+          <animate attributeName="opacity" values="0;0.8;0" dur="3s" begin="0s" repeatCount="indefinite"/>
+          <animateMotion dur="3s" begin="0s" repeatCount="indefinite" path="M 100 480 Q 200 380 300 440 Q 400 500 500 420 Q 600 340 700 400"/>
+        </circle>
+        <circle r="3" opacity="0" fill="#e8d5a0">
+          <animate attributeName="opacity" values="0;0.9;0" dur="4s" begin="1s" repeatCount="indefinite"/>
+          <animateMotion dur="4s" begin="1s" repeatCount="indefinite" path="M 150 500 Q 250 400 350 460 Q 450 520 550 440 Q 650 360 750 420"/>
+        </circle>
+        <circle r="5" opacity="0">
+          <animate attributeName="opacity" values="0;0.7;0" dur="5s" begin="2s" repeatCount="indefinite"/>
+          <animateMotion dur="5s" begin="2s" repeatCount="indefinite" path="M 80 460 Q 180 360 280 420 Q 380 480 480 400 Q 580 320 680 380"/>
+        </circle>
+      </g>
+
+      <!-- Light rays from keys -->
+      <g opacity="0.08" filter="url(#blur)">
+        <rect x="270" y="400" width="4" height="165" fill="#C9A84C"/>
+        <rect x="414" y="400" width="4" height="165" fill="#C9A84C"/>
+        <rect x="558" y="400" width="4" height="165" fill="#C9A84C"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-gradient"></div>
+  <div class="hero-gradient-bottom"></div>
+  <div class="particles" id="pts"></div>
+
+  <div class="hero-content">
     <p class="hero-eyebrow">Adult Piano Learners</p>
     <h1>Фортепиано<br>в <em>осознанном</em><br>возрасте</h1>
     <p class="hero-sub">Классическая музыка трёхсотлетней давности звучит так же, как в день написания. Пора научиться её читать.</p>
     <div class="hero-cta">
-      <a href="https://t.me/IlovepianoBot" class="btn-primary">Войти в сообщество</a>
-      <a href="https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?usp=sharing" class="btn-secondary">Скачать гайд DoFaMi·n</a>
+      <a href="https://t.me/IlovepianoBot" class="btn-gold">Войти в сообщество</a>
+      <a href="https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?usp=sharing" class="btn-outline">Скачать гайд DoFaMi·n</a>
     </div>
   </div>
+  <div class="scroll-arrow"><div class="arrow-line"></div><span>Скролл</span></div>
 </section>
 
-<div class="divider"></div>
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="rv"><span class="stat-n" data-c="30">0</span>%<span class="stat-l">улучшение памяти</span></div>
+    <div class="rv d1"><span class="stat-n">47 сек</span><span class="stat-l">концентрация 2023</span></div>
+    <div class="rv d2"><span class="stat-n">300 лет</span><span class="stat-l">музыка живёт</span></div>
+    <div class="rv d3"><span class="stat-n">∞</span><span class="stat-l">никогда не поздно</span></div>
+  </div>
+</div>
 
 <!-- EMPATHY -->
 <section class="empathy">
   <div class="container">
-    <p class="section-label">Мы знаем, каково это</p>
-    <h2 class="section-title">Ты не <em>один</em><br>с этим чувством</h2>
-    <div class="voices-grid">
-      <div class="voice">
-        <p class="voice-text">«Мой мозг всё понимает, но руки просто деревянные и не слушаются.»</p>
-        <p class="voice-note">Взрослый, 38 лет</p>
-      </div>
-      <div class="voice">
-        <p class="voice-text">«Неужели уже слишком поздно? Я начал в детстве, бросил, и теперь не могу простить себе.»</p>
-        <p class="voice-note">Взрослый, 44 года</p>
-      </div>
-      <div class="voice">
-        <p class="voice-text">«Пианино — мой тихий ритуал в конце дня. Не очередной отчёт о продуктивности, а что-то настоящее.»</p>
-        <p class="voice-note">Взрослый, 51 год</p>
-      </div>
+    <p class="lbl rv">Мы знаем, каково это</p>
+    <h2 class="title rv">Ты не <em>один</em><br>с этим чувством</h2>
+    <div class="quotes-grid">
+      <div class="quote-card rv d1"><p class="quote-text">«Всегда мечтал играть на фортепиано, но наверное уже поздно...»</p><p class="quote-author">Андрей, Москва</p></div>
+      <div class="quote-card rv d2"><p class="quote-text">«Я бросил в детстве — и теперь не могу простить себе этого.»</p><p class="quote-author">Антон, Киев</p></div>
+      <div class="quote-card rv d3"><p class="quote-text">«Пианино — мой тихий ритуал. Не очередной отчёт о продуктивности, а что-то настоящее.»</p><p class="quote-author">Марина, Берлин</p></div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section>
+<section id="about">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="section-label">О Diana Birgen</p>
-        <h2 class="section-title">Союзник,<br>а не <em>учитель</em></h2>
+    <div class="about-wrap">
+      <div class="rl">
+        <p class="lbl">О Diana Birgen</p>
+        <h2 class="title">Союзник,<br>а не <em>учитель</em></h2>
         <p>Я выросла в семье музыкантов — но сама начала серьёзно учиться фортепиано только в 30 лет. Без чьих-либо советов, в осознанном возрасте.</p>
         <p>Я не продаю алгоритмы. Я делюсь путём человека — со всеми его «деревянными руками», плато и прорывами.</p>
-        <p><strong>Моя миссия</strong> — нормализовать медленный прогресс и снять страх некомпетентности. Пианино — это не KPI. Это территория свободы.</p>
+        <p><strong>Моя миссия</strong> — нормализовать медленный прогресс и снять страх некомпетентности. Пианино — не KPI. Это территория свободы.</p>
       </div>
-      <div class="about-quote">
-        <blockquote>«Однажды я увидела год написания произведения — 1722. «Хорошо темперированный клавир» Баха. И меня накрыло: музыка дошла до нас через века в первозданном виде. Это прямой разговор через время.»</blockquote>
+      <div class="about-quote-block rr d2">
+        <blockquote>«Однажды я увидела год написания произведения — 1722. «Хорошо темперированный клавир» Баха. И меня накрыло: музыка дошла через века в первозданном виде. Это прямой разговор через время.»</blockquote>
         <cite>— Diana Birgen</cite>
       </div>
     </div>
   </div>
 </section>
 
-<!-- IDENTITY -->
-<section class="identity">
+<!-- VIDEO -->
+<section class="video-sec" id="video">
   <div class="container">
-    <p class="section-label">Beauty Path</p>
-    <p class="identity-statement">Пианино — это не хобби и не муштра. Это восстановительный ритуал для перегруженного человека. Антидот цифровому шуму.</p>
-    <div class="divider"></div>
-    <div class="identity-pillars">
-      <div class="identity-pillar">
-        <div class="pillar-num">01</div>
-        <h3>Язык, а не три песни</h3>
-        <p>Сольфеджио, теория, гармония — это алфавит и грамматика. Освоив язык, ты сможешь сыграть что угодно и понять, почему это звучит именно так.</p>
-      </div>
-      <div class="identity-pillar">
-        <div class="pillar-num">02</div>
-        <h3>Свобода от стыда</h3>
-        <p>Мы не учитель с указкой. Мы союзник рядом. Здесь нормально иметь «деревянные руки». Здесь нормально идти медленно. Здесь нет оценок.</p>
-      </div>
-      <div class="identity-pillar">
-        <div class="pillar-num">03</div>
-        <h3>Возврат к себе</h3>
-        <p>По данным профессора Глории Марк, концентрация внимания упала до 47 секунд. Фортепиано восстанавливает то, что цифровая среда разрушает.</p>
-      </div>
+    <p class="lbl rv" style="justify-content:center">Смотри как это выглядит</p>
+    <h2 class="title rv" style="text-align:center">Реальный <em>процесс</em><br>без монтажа</h2>
+    <div class="video-frame rv" id="vf" onclick="playVideo()">
+      <img src="https://img.youtube.com/vi/P-B-B6dBZUQ/maxresdefault.jpg" alt="Diana Birgen играет на фортепиано" onerror="this.src='https://img.youtube.com/vi/P-B-B6dBZUQ/hqdefault.jpg'">
+      <div class="play-btn"><div class="play-circle"><div class="play-triangle"></div></div></div>
+    </div>
+    <p class="video-caption rv">Взрослый человек, который начал с нуля в 30 лет. Честно, без прикрас.</p>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars-sec">
+  <div class="container">
+    <p class="lbl rv" style="justify-content:center">Beauty Path</p>
+    <p class="big-quote rv">Пианино — это не хобби и не муштра. Это восстановительный ритуал для перегруженного человека. Антидот цифровому шуму.</p>
+    <div class="pillars">
+      <div class="pillar rv d1"><div class="pnum">01</div><h3>Заговори на языке музыки</h3><p>Освой язык музыки — и играй всё, что пожелаешь. Не три заученные песни, а любое произведение, которое трогает душу.</p></div>
+      <div class="pillar rv d2"><div class="pnum">02</div><h3>Свобода от стыда</h3><p>Здесь нормально иметь «деревянные руки». Здесь нормально идти медленно. Мы союзник, а не учитель с указкой и оценками.</p></div>
+      <div class="pillar rv d3"><div class="pnum">03</div><h3>Возврат к себе</h3><p>Маятник истерии по соцсетям скоро качнётся. Люди будут искать человеческого — не идеального, сложного, с глубиной.</p></div>
     </div>
   </div>
 </section>
 
 <!-- FACTS -->
-<section class="facts">
-  <div class="container">
-    <p class="section-label">Факты</p>
-    <h2 class="section-title">Что происходит<br>с <em>мозгом</em></h2>
+<section>
+  <div class="container" style="text-align:center">
+    <p class="lbl rv" style="justify-content:center">Наука</p>
+    <h2 class="title rv">Что происходит<br>с <em>мозгом</em></h2>
     <div class="facts-grid">
-      <div>
-        <span class="fact-num">30%</span>
-        <span class="fact-text">улучшение рабочей памяти за 6 месяцев занятий</span>
+      <div class="fact rv d1"><span class="fact-n" data-c="30">0</span>%<span class="fact-t">улучшение рабочей памяти и концентрации за 6 месяцев занятий</span></div>
+      <div class="fact rv d2"><span class="fact-n">47 сек</span><span class="fact-t">средняя концентрация внимания в 2023 году (исслед. Глории Марк)</span></div>
+      <div class="fact rv d3"><span class="fact-n">300+</span><span class="fact-t">лет музыка Баха звучит в первозданном виде — прямой разговор через время</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-sec" id="calc">
+  <div class="container">
+    <p class="lbl rv">Интерактив</p>
+    <h2 class="title rv">Твой <em>путь</em><br>к музыкальному языку</h2>
+    <p class="rv" style="color:var(--muted)">Выбери сколько времени в день готов уделять — и увидишь свой путь шаг за шагом.</p>
+    <div class="calc-box rv">
+      <div class="calc-tabs">
+        <button class="ctab on" onclick="switchTab('30',this)"><span class="ctab-t">30 мин</span><span class="ctab-l">в день</span></button>
+        <button class="ctab" onclick="switchTab('60',this)"><span class="ctab-t">1 час</span><span class="ctab-l">в день</span></button>
+        <button class="ctab" onclick="switchTab('120',this)"><span class="ctab-t">2 часа</span><span class="ctab-l">в день</span></button>
       </div>
-      <div>
-        <span class="fact-num">47 сек</span>
-        <span class="fact-text">средняя концентрация внимания человека в 2023 году</span>
+      <div id="t30" class="cpanel on">
+        <p class="cintro">При 30 минутах в день — стабильный, устойчивый прогресс. Лучше 3 часов по выходным.</p>
+        <div class="csteps">
+          <div class="cstep"><div class="cstep-l">Шаг 1 — Фундамент</div><div class="cstep-d">Нотная грамота, ритм, координация двух рук независимо. Первое понимание как устроен звук.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 2 — Слух</div><div class="cstep-d">Сольфеджио, интервалы, аккорды. Музыка становится текстом который ты умеешь читать.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 3 — Гармония</div><div class="cstep-d">Понимаешь почему одна последовательность вызывает тревогу, а другая — покой.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 4 — Свобода</div><div class="cstep-d">Берёшь любые ноты и разбираешь самостоятельно. Без учителя. Потому что знаешь язык.</div></div>
+        </div>
       </div>
-      <div>
-        <span class="fact-num">300 лет</span>
-        <span class="fact-text">музыка Баха дошла до нас в первозданном виде</span>
+      <div id="t60" class="cpanel">
+        <p class="cintro">Час в день — серьёзный темп. За год достигнешь того, чего другие достигают за два.</p>
+        <div class="csteps">
+          <div class="cstep"><div class="cstep-l">Шаг 1 — Фундамент</div><div class="cstep-d">Быстрый старт. Нотная грамота и координация за первые несколько месяцев.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 2 — Слух</div><div class="cstep-d">Сольфеджио на хорошем уровне. Начинаешь слышать музыку изнутри.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 3 — Гармония</div><div class="cstep-d">Серьёзное понимание теории. Разбираешь сложные произведения самостоятельно.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 4 — Свобода</div><div class="cstep-d">Музыка — твой второй язык. Играешь и понимаешь всё.</div></div>
+        </div>
+      </div>
+      <div id="t120" class="cpanel">
+        <p class="cintro">2 часа в день — выбор тех, кто серьёзно. Профессиональный уровень реален.</p>
+        <div class="csteps">
+          <div class="cstep"><div class="cstep-l">Шаг 1 — Фундамент</div><div class="cstep-d">Быстрый старт. За несколько месяцев — то, чего другие достигают за год.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаги 2+3 — Слух и гармония</div><div class="cstep-d">Параллельное развитие. Серьёзная теоретическая база за полгода.</div></div>
+          <div class="cstep"><div class="cstep-l">Шаг 4 — Свобода</div><div class="cstep-d">Сложный репертуар доступен. Профессиональный подход к музыке.</div></div>
+          <div class="cstep"><div class="cstep-l">И дальше...</div><div class="cstep-d">Не любитель — музыкант. Разница в подходе, а не только в технике.</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TRUTH -->
-<section class="truth">
+<section class="truth-sec">
   <div class="container">
-    <p class="section-label">Честно</p>
-    <h2 class="section-title">Правда,<br>которую вы <em>не хотите</em> слышать</h2>
-    <p class="truth-quote">«Никто ещё не научился играть качественно с обучающих видео на ютуб. YouTube даёт иллюзию обучения, а не сам навык.»</p>
-    <p class="truth-body">Настоящее обучение — это изучение языка музыки. Не заучивание пьес, а понимание того, как и почему всё устроено. Это сложно. Это долго. И это невероятно вознаграждающе — именно потому, что сложно.</p>
-    <p class="truth-body">Это не уникальная методика. Ничего нового. Просто честный путь — такой, каким он и должен быть.</p>
+    <p class="lbl rv">Честно</p>
+    <h2 class="title rv">Правда,<br>которую вы <em>не хотите</em> слышать</h2>
+    <p class="big-truth rv">«Никто ещё не научился играть качественно с обучающих видео на ютуб. YouTube даёт иллюзию обучения, а не сам навык.»</p>
+    <p class="truth-p rv">Настоящее обучение — это изучение языка музыки. Не заучивание пьес, а понимание того, как и почему всё устроено. Это сложно. Это долго. И это невероятно вознаграждающе — именно потому, что сложно.</p>
+    <p class="truth-p rv">Это не уникальная методика. Просто честный путь — такой, каким он и должен быть.</p>
   </div>
 </section>
 
-<!-- ECOSYSTEM -->
-<section class="ecosystem">
-  <div class="container">
-    <p class="section-label">Экосистема</p>
-    <h2 class="section-title">Всё, что нужно<br>для <em>пути</em></h2>
-    <div class="eco-grid">
-      <div class="eco-item">
-        <p class="eco-tag">Вход</p>
-        <h3>Гайд DoFaMi·n</h3>
-        <p>Как фортепиано приводит к счастью. Научные факты, философия пути и честный взгляд на обучение взрослого человека.</p>
-        <p class="eco-price">Бесплатно для всех</p>
+<!-- AI -->
+<section class="ai-sec">
+  <div class="container" style="text-align:center">
+    <p class="lbl rv" style="justify-content:center">AI-консультант</p>
+    <h2 class="title rv">Задай вопрос<br><em>прямо сейчас</em></h2>
+    <p class="rv" style="color:var(--muted);margin-bottom:0">Спроси всё что интересует об обучении фортепиано во взрослом возрасте</p>
+    <div class="ai-wrap rv">
+      <div class="ai-head">
+        <div class="ai-av">🎹</div>
+        <div><div class="ai-nm">Diana Piano Assistant</div><div class="ai-st"><span class="dot"></span>онлайн</div></div>
       </div>
-      <div class="eco-item">
-        <p class="eco-tag">Сообщество</p>
-        <h3>Закрытый Telegram-канал</h3>
-        <p>Материалы, видео, онлайн-встречи раз в месяц. Люди, которые идут тем же путём рядом с тобой.</p>
-        <p class="eco-price">от $1.99/месяц</p>
+      <div class="ai-msgs" id="msgs"><div class="m bot">Привет! Спроси меня об обучении фортепиано — с чего начать, сколько времени нужно, как выбрать инструмент. Я помогу разобраться.</div></div>
+      <div class="ai-sugs" id="sugs">
+        <button class="sug" onclick="ask('С чего начать обучение в 35 лет?')">С чего начать в 35?</button>
+        <button class="sug" onclick="ask('Нужен ли акустический инструмент?')">Нужен акустический?</button>
+        <button class="sug" onclick="ask('Сколько времени нужно в день?')">Сколько времени?</button>
+        <button class="sug" onclick="ask('Что такое сольфеджио?')">Что такое сольфеджио?</button>
       </div>
-      <div class="eco-item">
-        <p class="eco-tag">Mentorship</p>
-        <h3>Индивидуальная работа</h3>
-        <p>Личная консультация с Diana Birgen — 1,5 часа. Твой путь, твой темп, твой план обучения.</p>
-        <p class="eco-price">$12.99/месяц</p>
-      </div>
-      <div class="eco-item">
-        <p class="eco-tag">Офлайн · Скоро</p>
-        <h3>Ретриты в Бодруме</h3>
-        <p>Музыкальный навык как премиальный стиль жизни. Бодрум, Стамбул, острова Эгейского моря.</p>
-        <p class="eco-price">Анонс скоро</p>
+      <div class="ai-row">
+        <input class="ai-inp" id="ain" placeholder="Задай вопрос..." onkeydown="if(event.key==='Enter')send()">
+        <button class="ai-go" id="ago" onclick="send()">Спросить</button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PLANS -->
-<section>
+<section id="plans">
   <div class="container">
-    <p class="section-label">Вступить</p>
-    <h2 class="section-title">Выбери<br>свой <em>путь</em></h2>
+    <p class="lbl rv">Вступить</p>
+    <h2 class="title rv">Выбери<br>свой <em>путь</em></h2>
     <div class="plans-grid">
-      <div class="plan">
-        <p class="plan-badge">Community</p>
-        <p class="plan-name">Для всех</p>
-        <p class="plan-price">$1.99 <span>/ месяц</span></p>
-        <ul class="plan-features">
+      <div class="plan rv d1">
+        <p class="plan-tag">Community</p>
+        <p class="plan-nm">Для всех</p>
+        <p class="plan-pr"><sup>$</sup>1.99<sub>/мес</sub></p>
+        <ul class="plan-fs">
           <li>Закрытый Telegram-канал</li>
           <li>Видео и материалы</li>
           <li>Онлайн-встреча раз в месяц</li>
-          <li>Оффлайн-встреча в Бодруме раз в год</li>
+          <li>Оффлайн в Бодруме раз в год</li>
           <li>Гайд DoFaMi·n в подарок</li>
         </ul>
-        <a href="https://www.patreon.com/cw/dianabirgen/membership" class="outline">Вступить</a>
+        <a href="https://www.patreon.com/cw/dianabirgen/membership" class="line">Вступить</a>
       </div>
-      <div class="plan featured">
-        <p class="plan-badge">✦ Mentorship</p>
-        <p class="plan-name">С Diana Birgen</p>
-        <p class="plan-price">$12.99 <span>/ месяц</span></p>
-        <ul class="plan-features">
+      <div class="plan feat rv d2">
+        <p class="plan-tag">✦ Mentorship</p>
+        <p class="plan-nm">С Diana Birgen</p>
+        <p class="plan-pr"><sup>$</sup>12.99<sub>/мес</sub></p>
+        <ul class="plan-fs">
           <li>Всё из Community</li>
-          <li>Индивидуальная консультация 1,5 часа</li>
+          <li>Индивидуальная консультация 1,5 ч</li>
           <li>Личный план обучения</li>
           <li>Разбор прогресса каждый месяц</li>
         </ul>
-        <a href="https://www.patreon.com/cw/dianabirgen/membership" class="gold">Вступить</a>
+        <a href="https://www.patreon.com/cw/dianabirgen/membership" class="fill">Вступить</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GIFT -->
-<section class="gift">
+<section class="gift-sec">
   <div class="container">
-    <div class="gift-box">
-      <p class="gift-title">DoFaMi·n</p>
-      <p class="gift-sub">Бесплатный гайд — подарок всем, кто зашёл</p>
-      <p class="gift-desc">Как фортепиано приводит к счастью. Дофамин, нейропластичность, вечность музыки и философия Beauty Path — всё в одном честном тексте.</p>
-      <a href="https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?usp=sharing" class="btn-primary">Скачать бесплатно</a>
+    <div class="gift-glow"></div>
+    <div class="gift-box rv">
+      <p class="gift-t">DoFaMi·n</p>
+      <p class="gift-s">Бесплатный гайд — подарок всем</p>
+      <p class="gift-d">Как фортепиано приводит к счастью. Дофамин, нейропластичность, вечность музыки и философия Beauty Path — всё в одном честном тексте.</p>
+      <a href="https://drive.google.com/file/d/1cqYP_NObft_ri-xYkOVH1vVIv79rZnAD/view?usp=sharing" class="btn-gold">Скачать бесплатно</a>
     </div>
   </div>
 </section>
@@ -339,5 +714,94 @@ footer a{color:var(--gold);text-decoration:none}
   <p>Adult Piano Learners · <a href="https://t.me/IlovepianoBot">@IlovepianoBot</a> · <a href="https://t.me/Diana_Birgen">@Diana_Birgen</a></p>
 </footer>
 
-</body>
-</html>
+<script>
+// PARTICLES
+const pc=document.getElementById('pts');
+for(let i=0;i<60;i++){
+  const p=document.createElement('div');p.className='p';
+  const s=Math.random()*3+1;
+  const c=Math.random()>0.5?'#C9A84C':'#e8d5a0';
+  p.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${c};opacity:0;animation-duration:${Math.random()*18+8}s;animation-delay:${Math.random()*12}s`;
+  pc.appendChild(p);
+}
+
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:0.08});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>obs.observe(el));
+
+// COUNT UP
+function countUp(el,t){let v=0;const s=t/55;const i=setInterval(()=>{v+=s;if(v>=t){v=t;clearInterval(i);}el.textContent=Math.round(v);},25);}
+const co=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting&&e.target.dataset.c){countUp(e.target,+e.target.dataset.c);co.unobserve(e.target);}}),{threshold:0.5});
+document.querySelectorAll('[data-c]').forEach(el=>co.observe(el));
+
+// AUDIO
+let playing=false;
+function toggleAudio(){
+  const a=document.getElementById('bgAudio'),b=document.getElementById('aud');
+  if(playing){a.pause();b.textContent='🎵';b.classList.remove('playing');playing=false;}
+  else{a.volume=0.12;a.play().catch(()=>{});b.textContent='🔇';b.classList.add('playing');playing=true;}
+}
+
+// VIDEO
+function playVideo(){
+  document.getElementById('vf').innerHTML='<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/P-B-B6dBZUQ?autoplay=1&rel=0" allow="autoplay;fullscreen" allowfullscreen></iframe>';
+}
+
+// CALC
+function switchTab(id,btn){
+  document.querySelectorAll('.ctab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.cpanel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('t'+id).classList.add('on');
+}
+
+// AI
+const sys=`Ты тёплый помощник сообщества Adult Piano Learners (Diana Birgen).
+Помогаешь взрослым 30+ с вопросами об обучении фортепиано.
+Ключевые идеи: фортепиано — язык а не три песни, нейропластичность в любом возрасте, 30 мин в день достаточно, важны сольфеджио и теория.
+Отвечай на русском, тепло и честно. Максимум 3 предложения. Мягко направляй к @IlovepianoBot.`;
+let hist=[];
+
+async function send(){
+  const inp=document.getElementById('ain'),txt=inp.value.trim();
+  if(!txt)return;
+  addMsg(txt,'usr');inp.value='';
+  document.getElementById('sugs').style.display='none';
+  const btn=document.getElementById('ago');btn.disabled=true;
+  const tid='ty'+Date.now();
+  addMsg('Печатает...','m bot typ',true,tid);
+  hist.push({role:'user',content:txt});
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:250,system:sys,messages:hist})
+    });
+    const d=await r.json();const rep=d.content[0].text;
+    hist.push({role:'assistant',content:rep});
+    document.getElementById(tid)?.remove();
+    addMsg(rep,'bot');
+  }catch{
+    document.getElementById(tid)?.remove();
+    addMsg('Напиши напрямую: @Diana_Birgen 🎹','bot');
+  }
+  btn.disabled=false;
+}
+
+function addMsg(text,cls,isId=false,id=''){
+  const m=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='m '+cls;
+  if(id)d.id=id;
+  d.textContent=text;
+  m.appendChild(d);
+  m.scrollTop=m.scrollHeight;
+}
+
+function ask(q){document.getElementById('ain').value=q;send();}
+</script>
+</HTMLEOF
+echo "Done"
